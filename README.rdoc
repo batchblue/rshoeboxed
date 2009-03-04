@@ -34,7 +34,17 @@ to the return_url with the user_token.
 === Get a list of all categories
 
   connection = RShoeboxed::Connection.new("api_token", "user_token")
-  categories = connection.get_category_call
+  categories = connection.get_category_call  
+
+=== Get a list of all business cards
+
+The api_token is provided by shoeboxed when you setup your API account. The user_token is retrieved by
+sending a user to authentication_url so they can log in to shoeboxed. On success, they will be redirected
+to the return_url with the user_token.  
+
+   connection = RShoeboxed::Connection.new("api_token", "user_token")
+   receipts = connection.get_business_card_call(200,1)
+
 
 == INSTALL:
 

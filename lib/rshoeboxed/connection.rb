@@ -83,6 +83,13 @@ module RShoeboxed
       response = post_xml(request)
 
       Category.parse(response)
+    end 
+    
+    def get_business_card_call(options = {})
+      request = build_business_card_request(options)
+      response = post_xml(request)
+
+      BusinessCard.parse(response)
     end
 
   private
@@ -137,7 +144,7 @@ module RShoeboxed
     def check_for_api_error(body)
       document = REXML::Document.new(body)
       root = document.root
-      
+      puts root.inspect
       if root && root.name == "Error"
         description = root.attributes["description"]
         
@@ -184,6 +191,21 @@ module RShoeboxed
         xml.GetCategoryCall
       end
     end
+    
+    def build_business_card_request(options)
+      xml = Builder::XmlMarkup.new
+      xml.instruct!
+      xml.Request(:xmlns => "urn:sbx:apis:SbxBaseComponents") do |xml|
+        append_credentials(xml)
+        xml.GetBusinessCardCall do |xml|
+          xml.BusinessCardFilter do |xml|
+            xml.Results(options[:per_page])
+            xml.PageNo(options[:current_page])   
+          end
+        end
+      end
+    end        
+
 
     def build_receipt_info_request(id)
       xml = Builder::XmlMarkup.new

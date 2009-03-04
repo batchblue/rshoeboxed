@@ -4,6 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'rubygems'
 require 'rshoeboxed/receipt'
 require 'rshoeboxed/category'
+require 'rshoeboxed/business_card' 
 require 'rshoeboxed/connection'
 require 'rshoeboxed/list_proxy'
 require 'rshoeboxed/parse_error'
